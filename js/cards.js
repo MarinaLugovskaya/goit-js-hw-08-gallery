@@ -18,14 +18,19 @@ galleryList.innerHTML = markup;
 
 galleryList.addEventListener('click', onOpenModalClick);
 
+function changeProperties(src, alt) {
+  modalImgRef.src = src;
+  modalImgRef.alt = alt;
+}
+
 function onOpenModalClick(event) {
   event.preventDefault();
 const target = event.target;
   if (target.nodeName !== 'IMG') {
 return;
   }
-    modalImgRef.src = target.dataset.source;
-    modalImgRef.alt = target.alt;
+
+    changeProperties(target.dataset.source, target.alt);
     modalRef.classList.add('is-open');
   };
 
@@ -36,8 +41,6 @@ function onCloseModalClick(event) {
   const target = event.target;
   if (target.nodeName !== 'IMG' ||  event.key === 'Escape') {
     modalRef.classList.remove('is-open');
-
-    modalImgRef.src = '';
-    modalImgRef.alt = '';
+    changeProperties(' ', ' ');
   }
   };
